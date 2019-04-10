@@ -53,4 +53,16 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root 'users#sign_up'
+
+  # User Routes
+  resources :users
+  get 'sign-up' => 'users#sign_up', as: :sign_up
+
+  # Chat Routes
+  resources :chats
+
+  # Message Routes
+  resources :messages
 end
