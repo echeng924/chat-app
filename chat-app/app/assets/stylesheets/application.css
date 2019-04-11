@@ -13,3 +13,106 @@
  *= require_tree .
  *= require_self
  */
+
+ * {
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body > div {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+
+/* login css */
+.login-container {
+    display: flex;
+    height: 100%;
+}
+
+.login-container .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 5%;
+}
+
+.content.sidebar {
+    flex: 2;
+    background: #58AF9B;
+    color: white;
+}
+
+.content.active {
+    flex: 4;
+    background: white;
+    color: #333;
+}
+
+.header {
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.content.active .header {
+    color: #58AF9B;
+}
+
+.sub-header {
+    margin-bottom: 20px;
+}
+
+.sub-header .line {
+    margin-bottom: 7px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.form {
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    border: 0;
+    background: none;
+    font-size: 16px;
+    outline: none;
+    margin-left: 3px;
+    padding: 10px;
+    flex: 1;
+}
+.login-container .input {
+    background: #F4F8F7;
+    padding: 6px 0 6px 20px;
+    min-width: 350px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.login-container .button {
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 30px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.content.active .button {
+    background: #32B09F;
+    color: white;
+    border-color: #32B09F;
+}
