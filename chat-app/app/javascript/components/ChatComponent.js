@@ -6,10 +6,7 @@ class ChatComponent extends React.Component {
 
         this.state = {
             rooms: [],
-            selectedRoom: {
-                id: 1,
-                name: "general"
-            },
+            selectedRoom: {},
             message: "",
             messages: [{
                 user: {
@@ -74,6 +71,39 @@ class ChatComponent extends React.Component {
         });
     }
 
+    setRoom = (room) => {
+        this.setState({
+            selectedRoom: room,
+        })
+    }
+    
+    createMessage = () => {
+        let params = {
+            text: this.state.message,
+            chat_id: this.state.selectedRoom.id,
+            user_id: this.props.user.id
+        };
+        fetch('/messages', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                message: '',
+            });
+        })
+    }
+
+    messageChange = event => {
+        this.setState({
+            message: event.target.value,
+        })
+    }
+
     render() {
         return (<div className="chat">
             <div className="sidebar">
@@ -84,7 +114,7 @@ class ChatComponent extends React.Component {
                 <div className="rooms">
                     <div className="title">Rooms:</div>
                     {this.state.rooms.map(room =>
-                        <div className="room" key={room.id}># {room.name}</div>
+                        <div className="room" key={room.id} onClick={() => this.setRoom(room)}># {room.name}</div>
                     )}
                 </div>
                 <div className="add-room" onClick={this.addRoom}>
@@ -109,8 +139,8 @@ class ChatComponent extends React.Component {
                         )}
                     </div>
                     <div className="input">
-                        <input type="text" placeholder="Type your message here!"></input>
-                        <div className="button">
+                        <input type="text" placeholder="Type your message here!" value={this.state.message} onChange={this.messageChange}></input>
+                        <div className="button" onClick={() => this.createMessage()}>
                             <i className="fas fa-arrow-circle-right"></i>
                         </div>
                     </div>
