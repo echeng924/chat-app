@@ -54,14 +54,16 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  root 'users#sign_up'
+  root 'chats#index'
 
   # User Routes
   resources :users
   get 'sign-up' => 'users#sign_up', as: :sign_up
+  post 'log-in' => 'users#log_in', as: :log_in
 
   # Chat Routes
   resources :chats
+  get 'all-chats' => 'chats#all_chats', as: :all_chats
 
   # Message Routes
   resources :messages
