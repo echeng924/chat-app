@@ -5,16 +5,7 @@ class ChatComponent extends React.Component {
         super(props);
 
         this.state = {
-            rooms: [{
-                id: 1,
-                name: "general"
-            }, {
-                id: 2,
-                name: "hello-world"
-            }, {
-                id: 3,
-                name: "project1"
-            }],
+            rooms: [],
             selectedRoom: {
                 id: 1,
                 name: "general"
@@ -45,6 +36,44 @@ class ChatComponent extends React.Component {
         };
     }
 
+    componentWillMount() {
+        setInterval(this.refreshRooms, 10000);
+        this.refreshRooms();
+    }
+
+    addRoom = () => {
+        let roomName = prompt("Please enter a room name", "Harry Potter");
+        if (roomName) {
+            let params = {
+                chat_name: roomName,
+            };
+            fetch('/chats', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            })
+            .then(response => response.json())
+            .then(response => {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    this.refreshRooms();
+                }
+            })
+        }
+    }
+    refreshRooms = () => {
+        fetch('/all-chats')
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                rooms: response.rooms
+            });
+        });
+    }
+
     render() {
         return (<div className="chat">
             <div className="sidebar">
@@ -58,7 +87,7 @@ class ChatComponent extends React.Component {
                         <div className="room" key={room.id}># {room.name}</div>
                     )}
                 </div>
-                <div className="add-room">
+                <div className="add-room" onClick={this.addRoom}>
                     <i className="fas fa-plus"></i> Add room
                 </div>
             </div>
