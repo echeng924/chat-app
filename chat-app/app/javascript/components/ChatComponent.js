@@ -8,34 +8,18 @@ class ChatComponent extends React.Component {
             rooms: [],
             selectedRoom: {},
             message: "",
-            messages: [{
-                user: {
-                    id: 0,
-                    name: "Elizabeth"
-                },
-                created_at: "04/11/2019 12:00AM",
-                text: "Hello!"
-            }, {
-                user: {
-                    id: 0,
-                    name: "Elizabeth"
-                },
-                created_at: "04/11/2019 12:00AM",
-                text: "Hello2!"
-            }, {
-                user: {
-                    id: 0,
-                    name: "Jennifer"
-                },
-                created_at: "04/11/2019 12:05AM",
-                text: "Testing a new message..."
-            }],
+            messages: [],
         };
     }
 
     componentWillMount() {
         setInterval(this.refreshRooms, 10000);
         this.refreshRooms();
+
+        setInterval(() => {
+            this.getMessages(this.state.selectedRoom.id);
+        }, 3000);
+        // this.getMessages(this.state.selectedRoom.id);
     }
 
     addRoom = () => {
@@ -71,10 +55,24 @@ class ChatComponent extends React.Component {
         });
     }
 
+    getMessages = (roomId) => {
+        if (!roomId) {
+            return;
+        }
+        fetch(`/chats/${roomId}`)
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                messages: response.messages,
+            })
+        });
+    }
+
     setRoom = (room) => {
         this.setState({
             selectedRoom: room,
         })
+        this.getMessages(room.id);
     }
     
     createMessage = () => {
@@ -95,6 +93,7 @@ class ChatComponent extends React.Component {
             this.setState({
                 message: '',
             });
+            this.getMessages(this.selectedRoom.id);
         })
     }
 
@@ -102,6 +101,12 @@ class ChatComponent extends React.Component {
         this.setState({
             message: event.target.value,
         })
+    }
+
+    submitMessage = event => {
+        if (event.key == "Enter") {
+            this.createMessage();
+        }
     }
 
     render() {
@@ -139,7 +144,7 @@ class ChatComponent extends React.Component {
                         )}
                     </div>
                     <div className="input">
-                        <input type="text" placeholder="Type your message here!" value={this.state.message} onChange={this.messageChange}></input>
+                        <input type="text" placeholder="Type your message here!" value={this.state.message} onChange={this.messageChange} onKeyDown={this.submitMessage}></input>
                         <div className="button" onClick={() => this.createMessage()}>
                             <i className="fas fa-arrow-circle-right"></i>
                         </div>
