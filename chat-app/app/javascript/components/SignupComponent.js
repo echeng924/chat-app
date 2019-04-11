@@ -17,6 +17,25 @@ class SignupComponent extends React.Component {
     }
 
     submit = () => {
+        let params = {
+            username: this.state.username,
+            password: this.state.password,
+        };
+        fetch('/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.error) {
+                alert(response.error);
+            } else {
+                this.props.login(response.user);
+            }
+        })
     }
 
     render() {
