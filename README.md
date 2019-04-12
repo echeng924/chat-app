@@ -20,7 +20,7 @@ Built with:
    4. Yarn
    
    
-For Ubuntu, instructions are provided here: [UbuntuInstall.md](./UbuntuInstall.md)
+For Ubuntu, instructions are provided here: [UbuntuInstall.md](./ubuntuInstall.md)
 
 Run the following commands:
 
