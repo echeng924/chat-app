@@ -2,6 +2,8 @@
 
 Chatter allows users to sign up, create chat rooms, and start chatting.
 
+![screenshot](https://github.com/echeng924/chat-app/blob/master/screenshots/chatter2.png)
+
 Built with:
 * Ruby
 * Rails
