@@ -6,29 +6,34 @@ Built with:
 * Ruby
 * Rails
 * React-Rails
-* Postgres
+* PostgreSQL
 
-### How to start up Chatter:
-1. **Make sure Ruby/Rails are installed in your system**
-   - Run `ruby -v` and `rails -v`
-https://railskey.wordpress.com/2013/11/20/setup-ruby-on-rails-on-ubuntu/
+## How to start up Chatter:
+1. **Clone repository**
+   - `git clone git@github.com:echeng924/chat-app.git`
 
-1. **Clone repository **
-   `git clone git@github.com:echeng924/chat-app.git`
 
-1. `cd into chat-app`
+1. **Make sure the following are installed:**
+   1. Ruby
+   1. PostgresQL
+   1. Node/NPM
+   4. Yarn
+   
+   
+For Ubuntu, instructions are provided here: [UbuntuInstall.md](./UbuntuInstall.md)
 
-1. **Install all dependencies**
-   Run `bundle install`
+Run the following commands:
 
-1. **Create db and migrate schema**
-    Run `rake db:create`
-    Run `rake db:migrate`
+    gem install bundler -v 1.16.1
 
-1.  **Start up server**
-    Run `rails s`
+    cd chat-app
+    bundle install
+    yarn install --check-files
 
-1. Go to http://localhost:3000 in your web browser
+    rake db:create
+    rake db:migrate
+
+    rails s
 
 
 #### Resources:
